@@ -12897,6 +12897,8 @@ scaling_metric_data_t player_t::scaling_for_metric( scale_metric_e metric ) cons
   {
     case SCALE_METRIC_DPS:
       return { metric, q->collected_data.dps };
+    case SCALE_METRIC_RDPS:
+      return { metric, q>sim->raid_dps };
     case SCALE_METRIC_DPSE:
       return { metric, q->collected_data.dpse };
     case SCALE_METRIC_HPS:

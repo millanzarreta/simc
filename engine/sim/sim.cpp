@@ -1511,7 +1511,7 @@ sim_t::sim_t() :
   elapsed_time(),
   work_done( 0 ),
   iteration_dmg( 0 ), priority_iteration_dmg( 0 ), iteration_heal( 0 ), iteration_absorb( 0 ),
-  raid_dps(), total_dmg(), raid_hps(), total_heal(), total_absorb(), raid_aps(),
+  raid_dps( "raid_dps", false ), total_dmg(), raid_hps(), total_heal(), total_absorb(), raid_aps(),
   simulation_length( "Simulation Length", false ),
   merge_time(), init_time(), analyze_time(),
   report_iteration_data( 0.025 ), min_report_iteration_data( -1 ),
@@ -2820,6 +2820,8 @@ void sim_t::analyze()
   const auto start_time = chrono::wall_clock::now();
 
   simulation_length.analyze();
+  raid_dps.analyze();
+
   if ( simulation_length.mean() == 0 ) return;
 
   for ( size_t i = 0; i < buff_list.size(); ++i )

@@ -535,7 +535,8 @@ struct sim_t : private sc_thread_t
   std::vector<size_t> work_per_thread;
   size_t work_done;
   double     iteration_dmg, priority_iteration_dmg,  iteration_heal, iteration_absorb;
-  simple_sample_data_t raid_dps, total_dmg, raid_hps, total_heal, total_absorb, raid_aps;
+  extended_sample_data_t raid_dps;
+  simple_sample_data_t total_dmg, raid_hps, total_heal, total_absorb, raid_aps;
   extended_sample_data_t simulation_length;
   chrono::wall_clock::duration merge_time, init_time, analyze_time;
   // Deterministic simulation iteration data collectors for specific iteration

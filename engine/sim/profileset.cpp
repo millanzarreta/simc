@@ -996,6 +996,7 @@ statistical_data_t metric_data( const player_t* player, scale_metric_e metric )
   switch ( metric )
   {
     case SCALE_METRIC_DPS:       return collect( d.dps );
+    case SCALE_METRIC_RDPS:      return collect( player->sim->raid_dps );
     case SCALE_METRIC_DPSE:      return collect( d.dpse );
     case SCALE_METRIC_HPS:       return collect( d.hps );
     case SCALE_METRIC_HPSE:      return collect( d.hpse );

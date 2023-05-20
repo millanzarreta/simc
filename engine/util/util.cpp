@@ -1796,6 +1796,7 @@ const char* util::scale_metric_type_string( scale_metric_e sm )
   switch ( sm )
   {
     case SCALE_METRIC_DPS:       return "Damage per Second";
+    case SCALE_METRIC_RDPS:      return "Raid Damage per Second";
     case SCALE_METRIC_DPSE:      return "Damage per Second (effective)";
     case SCALE_METRIC_DPSP:      return "Damage per Second to Priority Target/Boss";
     case SCALE_METRIC_HPS:       return "Healing per Second";
@@ -1820,6 +1821,7 @@ const char* util::scale_metric_type_abbrev( scale_metric_e sm )
   switch ( sm )
   {
     case SCALE_METRIC_DPS:       return "dps";
+    case SCALE_METRIC_RDPS:      return "raiddps";
     case SCALE_METRIC_DPSP:      return "prioritydps";
     case SCALE_METRIC_DPSE:      return "dpse";
     case SCALE_METRIC_HPS:       return "hps";
