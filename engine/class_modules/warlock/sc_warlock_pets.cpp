@@ -1574,6 +1574,24 @@ struct dreadstalker_leap_t : warlock_pet_t::travel_t
       debug_cast<warlock_pet_t*>( player )->melee_attack->cancel();
     }
 
+    const double distance = player->current.distance;
+    if (!debug_cast<warlock_pet_t*>( player )->melee_on_summon && distance > 5.0) {
+      // The dreadstalkers' travel speed is not constant, since it has a certain acceleration
+      // The average speed for various distances is extracted from the ingame behavior and the rest is interpolated, thus obtaining a lookup table
+      // 2024-03-28: lookup_table for speeds in [5-40]yd TO 1yd range ([0yd-4yd] excluded because we consider these melee range)
+      const size_t distance_st = static_cast<size_t>(distance+0.5);
+      const std::array<double, 36> lookup_table_speed = {
+                                    14.81, 15.50, 16.42, 18.89, 20.73, 22.19, // [ 5yd-10yd]
+        23.41, 24.45, 25.36, 26.17, 26.89, 27.55, 28.15, 28.70, 29.21, 29.69, // [11yd-20yd]
+        30.13, 30.54, 30.94, 31.31, 31.66, 31.99, 32.30, 32.61, 32.89, 33.17, // [21yd-30yd]
+        33.43, 33.69, 33.93, 34.17, 34.40, 34.61, 34.83, 35.03, 35.23, 35.42  // [31yd-40yd]
+      };
+      speed = lookup_table_speed[std::min(distance_st,static_cast<size_t>(40))-static_cast<size_t>(5)];
+    } else {
+      // No travel time if melee range (distance <= 5yd or melee_on_summon flag), so set very high travel speed for this case
+      speed = 1000.0;
+    }
+
     warlock_pet_t::travel_t::schedule_execute( s );
   }
 
