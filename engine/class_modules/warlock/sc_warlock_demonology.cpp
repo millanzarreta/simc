@@ -503,13 +503,23 @@ struct call_dreadstalkers_t : public demonology_spell_t
 
     unsigned count = as<unsigned>( p()->talents.call_dreadstalkers->effectN( 1 ).base_value() );
 
-    // Set a randomized offset on first melee attacks after travel time. Make sure it's the same value for each dog so they're synced
-    timespan_t delay = rng().range( 0_s, 1_s );
-
-    timespan_t dur_adjust = duration_adjustment( delay );
+    timespan_t delay;
+    timespan_t dur_adjust;
+    const double dist = p()->get_player_distance( *target );
+    if (dist > 5.0)
+    {
+      // Set a randomized offset on first melee attacks after travel time. Make sure it's the same value for each dog so they're synced
+      delay = rng().range( 0_s, 1_s );
+      dur_adjust = duration_adjustment( delay );
+    }
+    else
+    {
+      // No delay if summoned at melee range
+      delay = 0_ms;
+      dur_adjust = rng().range( 0_s, 1_s );
+    }
 
     auto dogs = p()->warlock_pet_list.dreadstalkers.spawn( p()->talents.call_dreadstalkers_2->duration() + dur_adjust, count );
-
 
     for ( auto d : dogs )
     {
