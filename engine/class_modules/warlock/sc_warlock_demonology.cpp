@@ -511,8 +511,6 @@ struct call_dreadstalkers_t : public demonology_spell_t
     auto dogs = p()->warlock_pet_list.dreadstalkers.spawn( p()->talents.call_dreadstalkers_2->duration() + dur_adjust, count );
 
 
-    auto dogs = p()->warlock_pet_list.dreadstalkers.spawn( p()->talents.call_dreadstalkers_2->duration() + dur_adjust, count );
-
     for ( auto d : dogs )
     {
       if ( d->is_active() )
